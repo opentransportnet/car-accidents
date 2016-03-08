@@ -44,7 +44,7 @@ function visualize(data){
 		var charts = [];
 		
 		/*SERVELITY*/
-		var sev   = {data: data.sev,  domain: data.sevEnum ,  name: 'sev', type:'ordinal', label : "accident servelity"};	
+		var sev   = {data: data.sev,  domain: data.sevEnum ,  name: 'sev', type:'ordinal', label : "accident severity"};	
 		WGL.addOrdinalHistDimension(sev);
 		WGL.addLinearFilter(sev,3, 'sevF');
 		charts['sev']   = new StackedBarChart(sev, "chart3", "accident severity",'sevF');

@@ -235,6 +235,7 @@ WGL = function(num, url, divid){
 
 	
 	this.render = function(){		
+		gl.bindFramebuffer(gl.FRAMEBUFFER,null);
 		gl.viewport(0,0, manager.w, manager.h);
 		gl.clearColor(0.0, 0.0, 0.0, 0.0);
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -332,8 +333,10 @@ WGL = function(num, url, divid){
 						//mainFilter.applyFilterDim(dimensions[i],j);		
 					} 
 				}
-				if (needfilter) {setFiltersTrasholds()
+				if (needfilter) {
+					setFiltersTrasholds()
 					mainFilter.applyFilterAll(dimensions);	
+					thisfilter = undefined;
 				};
 			}
 		}
@@ -360,7 +363,7 @@ WGL = function(num, url, divid){
 			return;
 			
 		} else if ( filter.length>0 && (filterId!=thisfilter || typeof(thisfilter)=='undefined' )){
-			//console.log('filter changed');
+			console.log('filter changed');
 			//thatfilter = thisfilter;			
 			thisfilter =  filterId;
 			this.filterChanged(id, thisfilter);						

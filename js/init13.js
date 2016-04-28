@@ -3,9 +3,9 @@
 function init() { 			 
 		initMap();	
 		var data = new DataLoader();
-	//	data.loadPosData("data/all13.json");
+		data.loadPosData("data/all13.json");
 	//	data.loadPosData("data/all13a14.json");
-		data.loadPosData("data/xybirm5a.json");
+	//	data.loadPosData("data/xybirm5a.json");
 	//	data.loadPosData("data/xyall5a500k.json");
 	//	data.loadPosData("data/xyall5a300k.json");
 	//	data.loadPosData("data/xyall5atest.json");
@@ -20,7 +20,7 @@ function init() {
 function visualize(data){	
 
 		//wgl = new WGL(data.num,'http://localhost:9999/js/webglayer/','map');	
-		WGL.init(data.num,'./','map');	
+		WGL.init(data.num,'../../','map');	
 		window.onresize = function(){
 			WGL.resize();
 		}
@@ -78,7 +78,16 @@ function visualize(data){
 		WGL.addLinearFilter(sev,3, 'sevF');
 		charts['sev']   = new  WGL.ui.StackedBarChart(sev, "ch3", "accident severity",'sevF');
 	
-	
+		/*Date*/
+		var date =  {data: data.date,   min:data.dmm.min, max:data.dmm.max, num_bins: 365, name: 'date', type:'linear'} ;
+		var chd5 = new WGL.ChartDiv("right","ch5", "Date");
+		chd5.setDim(WGL.addLinearHistDimension(date));
+		WGL.addLinearFilter(date,date.num_bins, 'dateF');
+		charts['date']  = new WGL.ui.StackedBarChart(date, "ch5", "Date ", 'dateF');
+		charts['date'].xformat = function(d){
+			var data =  new Date(d*1000*60*60);
+			return (data.getDay()+1)+". "+ (data.getMonth()+1);
+		}
 		var roadtype = {data: data.road_type, domain: data.rtDom,  
 				name:'roadt', type:'ordinal', label : "road type"};
 		WGL.addOrdinalHistDimension(roadtype).setVisible(false);
@@ -94,18 +103,6 @@ function visualize(data){
 		charts['speedlimit'] = new  WGL.ui.StackedBarChart(sl, "ch4", "Speed limit", 'slF');
 		
 	
-		/*Date*/
-		var date =  {data: data.date,   min:data.dmm.min, max:data.dmm.max, num_bins: 100, name: 'date', type:'linear'} ;
-		var chd5 = new WGL.ChartDiv("right","ch5", "Date");
-		chd5.setDim(WGL.addLinearHistDimension(date));
-		WGL.addLinearFilter(date,date.num_bins, 'dateF');
-		charts['date']  = new WGL.ui.StackedBarChart(date, "ch5", "Date (month - year)", 'dateF');
-		charts['date'].xformat = function(d){
-			var data =  new Date(d*1000*60*60);
-			return data.getMonth()+" - "+ data.getFullYear();
-		}
-		//charts['date'].setTicks(30);
-		
 		var d =[];
 		d[0]= hours;
 		d[1] = days;		
@@ -234,9 +231,9 @@ function addHeatMapControl(hm,divid){
 	"<div style='margin:0.5em'>"+
 	"<text>Radius: </text><text id='radius_label'></text>"+	 
 	"<input style='width: 50%; right:1em; position:absolute' type ='range' max='100' min='1'"+
-        				"step='1' name='points' id='slider_radius' value='30'></input> </div>");
-        				
-    
+       				"step='1' name='points' id='slider_radius' value='30'></input> </div>");
+       				
+   
 	 thediv.append(
 				"<div style='margin:0.5em'>"+
 				"<text>Get maximum from data:</text>"+	 
@@ -249,6 +246,7 @@ function addHeatMapControl(hm,divid){
 		        				"step='1' name='points' id='hm_max' value='10' disabled></input> </div>");
 	
 
+
 	
 	
    
@@ -256,7 +254,7 @@ function addHeatMapControl(hm,divid){
     WGL.addColorFilter(hm.id,'colorbrush');
 	var legend = new  WGL.ui.HeatMapLegend(divid+"left", 'colorbrush');
 	hm.addLegend(legend);
-	WGL.addLegend(legend);
+	
 	
 	$("#slider_radius").on("input", function(){		
 		

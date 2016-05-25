@@ -36,7 +36,8 @@ html,body {
     margin-bottom:18em;
     margin-right:32em;
     margin-left:0px;
-    z-index:100;	
+    z-index:100;	 
+   	opacity: .99;
     border-bottom-width:1px;
 	border-bottom-style: solid;
 	border-bottom-color:white;
@@ -89,7 +90,7 @@ html,body {
 	height:3empt;
 	
 	margin-right: 48em;
-	z-index:1000;	
+	z-index:1001;	
 	position:absolute;
 	right:2em;
 	
@@ -267,6 +268,10 @@ shape-rendering: optimizeSpeed ;
 	z-index: 2000;
 	
 }
+/* div:first-child { */
+/*   opacity: .99; */
+/* } */
+
 .slider {
 	position:absolute;
 	right:0em;
@@ -290,11 +295,11 @@ shape-rendering: optimizeSpeed ;
   shape-rendering: crispEdges;
 }
 </style>
-<script src="javascripts/ol/lib/OpenLayers.js"></script>
-<script src="javascripts/jquery-1.9.1.min.js"></script>
-<script src="javascripts/poly2tri.js"></script>
+<script src="../libs/OpenLayers.js"></script>
+<script src="../libs/jquery-1.9.1.min.js"></script>
+<script src="../libs/poly2tri.js"></script>
 
-<script src="javascripts/d3.v3.min.js"></script>
+<script src="../libs/d3.v3.min.js"></script>
 
 
 <!-- Local configuration -->
@@ -305,9 +310,35 @@ shape-rendering: optimizeSpeed ;
 <!-- WebGLayer -->
 
 
-<script src="javascripts/WebGLayer.min.js"></script>
+<!--<script src="../../build/WebGLayer.min.js"></script>-->
 
+ <script src="../../src/WGL.js"></script>
+<script src="../../src/internal/utils.js"></script>
+<script src="../../src/internal/filtrutils.js"></script>
+<script src="../../src/internal/GLUtils.js"></script>
+<script src="../../src/internal/Manager.js"></script>
+<script src="../../src/internal/MapController.js"></script>
+<script src="../../src/internal/FloatRasterReader.js"></script>
+<script src="../../src/internal/Filter.js"></script>
+<script src="../../src/internal/MaxCalculator.js"></script>
+<script src="../../src/internal/FloatReaderHistogram.js"></script>
 
+<script src="../../src/dimension/MapDimension.js"></script>
+<script src="../../src/dimension/HeatMapDimension.js"></script>
+<script src="../../src/dimension/HeatMapRenderer.js"></script>
+<script src="../../src/dimension/HistDimension.js"></script>
+<script src="../../src/dimension/ParallelCoordinates.js"></script>
+<script src="../../src/dimension/ParallelCoordinatesRenderer.js"></script>
+
+<script src="../../src/filter/LinearFilter.js"></script>
+<script src="../../src/filter/MapPolyFilter.js"></script>
+<script src="../../src/filter/ExtentFilter.js"></script>
+<script src="../../src/filter/MapColorFilter.js"></script>
+
+<script src="../../src/ui/StackedBarChart.js"></script>
+<script src="../../src/ui/HeatMapLegend.js"></script>
+<script src="../../src/ui/d3.svg.multibrush.js"></script>
+<script src="../../src/ui/ChartDiv.js"></script> 
 
 </head>
 <body onload="init()">
@@ -351,9 +382,11 @@ shape-rendering: optimizeSpeed ;
     
 <!-- 				</div>				 -->
 				<div class="control">	
-				<label>Layers:  </label>		
-					<label><input id="points_visible" type="checkbox" name="themap" checked="true"/>points</label>
-					<label><input id="heatmap_visible" type="checkbox" name="heatmap" checked="true"/>heatmap</label>
+				<label>Layers:  </label>		<br/>
+					<label><input id="heatmap_visible" type="checkbox" name="heatmap" checked="true"/>heatmap</label> <br/>
+					<label><input id="points_visible" type="checkbox" name="themap" checked="true"/>accidents</label> <br/>
+					<label><input id="schools_visible" type="checkbox" name="heatmap" />schools</label> <br/>
+				
 					<label id ='reset'> Reset </label>
 				</div>
 				<hr/>

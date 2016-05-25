@@ -20,7 +20,7 @@ function init() {
 function visualize(data){	
 
 		//wgl = new WGL(data.num,'http://localhost:9999/js/webglayer/','map');	
-		WGL.init(data.num,'./','map');	
+		WGL.init(data.num,'../../','map', 'OpenLayers_Map_2_OpenLayers_Container');	
 		window.onresize = function(){
 			WGL.resize();
 		}
@@ -191,6 +191,12 @@ function visualize(data){
 			l.setVisible(this.checked);
 			// heatmap.reRender();
 			WGL.render();			
+		});
+		
+		
+	
+		$("#schools_visible").click(function(){
+			map.getLayersByName('Points')[0].setVisibility(this.checked);		
 		});
 
 		WGL.mcontroller.zoommove(map.getZoom(), getTopLeftTC());

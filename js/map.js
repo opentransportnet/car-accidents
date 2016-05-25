@@ -45,9 +45,41 @@ initMap = function() {
             }
         }
     });
-
-    map.addLayer(layer2);
+      
+   
+        
     
+    var vector_layer = new OpenLayers.Layer.Vector("Points",{
+    					styleMap: new OpenLayers.Style({
+    						'pointRadius': 14,
+    						'fillColor': "#666666",    					
+                            'externalGraphic': "http://otn-production.intrasoft-intl.com/maps/symbols/!school.svg"                           
+    					})
+    		}); 
+    vector_layer.setVisibility(false);		
+    map.addLayer(vector_layer);
+   
+    
+    
+    $.ajax({
+    	  dataType: "json",
+    	  url: './data/schools.json',    	 
+    	  success: function(data){
+    		  
+    		  var geojson_format = new OpenLayers.Format.GeoJSON();
+    		  
+    		 
+    		  vector_layer.addFeatures(geojson_format.read(data));
+    	  }
+    	});
+    
+    
+   
+     
+	
+    map.addLayer(layer2);
+  //  map.addLayer(layerkml);
+    map.addControl( new OpenLayers.Control.LayerSwitcher() );
 	
 	var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
 	renderer = (renderer) ? [ renderer ]
